@@ -49,19 +49,22 @@ Article.fetchAll = () => {
   // REVIEW: What is this 'if' statement checking for? Where was the rawData set to local storage? 
 
   if (localStorage.rawData) {
-
+//
     let localStorageData = JSON.parse(localStorage.getItem('rawData'));
     Article.loadAll(localStorageData);
+    articleView.initIndexPage();
 
   } else {
     $.getJSON('../data/hackeripsum.json')
       .then(
         function(data) {
           console.log(data);
-          localStorage.setItem('rawData', JSON.stringify(data))},
-          Article.loadAll(data),
+          localStorage.setItem('rawData', JSON.stringify(data))
+          Article.loadAll(data);
+          articleView.initIndexPage()},
         function(err) {
           console.error(err)}
       );
   }
 }
+//If the local storage already exists, proceed directly to populating the object array and initializing the index page. If not, irst the data is taken from the JSON file, using AJAX. Then the data is set into local storage for later use. Finally the data is passed into loadAll, populating the Article array, and the page is initialized.
