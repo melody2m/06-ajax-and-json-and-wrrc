@@ -49,10 +49,9 @@ Article.fetchAll = () => {
   // REVIEW: What is this 'if' statement checking for? Where was the rawData set to local storage? 
 
   if (localStorage.rawData) {
-
+//
     let localStorageData = JSON.parse(localStorage.getItem('rawData'));
     Article.loadAll(localStorageData);
-    localStorage.clear();
 
   } else {
     $.getJSON('../data/hackeripsum.json')
@@ -63,9 +62,8 @@ Article.fetchAll = () => {
         function(err) {
           console.error(err)}
       );
-
     let localStorageData = JSON.parse(localStorage.getItem('rawData'));
     Article.loadAll(localStorageData);
-    localStorage.clear();
   }
 }
+//Before else, the code represents if local storage.rawdata does exist, else we grab the data then we set it.  After setting in order for us to retreive and read the data, the act of parsing must be included in the end.  
