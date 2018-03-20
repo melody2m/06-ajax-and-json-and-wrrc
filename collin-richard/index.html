@@ -85,7 +85,7 @@
     <script src="scripts/articleView.js"></script>
     <script>
       Article.fetchAll();
-      articleView.initIndexPage();
+      // We only need fetchAll on this page because articleView.initIndexPage is called within fetchAll in article.js. We have to call it within that function or else it won't wait for the AJAX request to complete before trying to initialize the page. 
     </script>
   </body>
 </html>

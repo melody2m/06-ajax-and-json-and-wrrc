@@ -52,18 +52,19 @@ Article.fetchAll = () => {
 //
     let localStorageData = JSON.parse(localStorage.getItem('rawData'));
     Article.loadAll(localStorageData);
+    articleView.initIndexPage();
 
   } else {
     $.getJSON('../data/hackeripsum.json')
       .then(
         function(data) {
           console.log(data);
-          localStorage.setItem('rawData', JSON.stringify(data))},
+          localStorage.setItem('rawData', JSON.stringify(data))
+          Article.loadAll(data);
+          articleView.initIndexPage()},
         function(err) {
           console.error(err)}
       );
-    let localStorageData = JSON.parse(localStorage.getItem('rawData'));
-    Article.loadAll(localStorageData);
   }
 }
-//Before else, the code represents if local storage.rawdata does exist, else we grab the data then we set it.  After setting in order for us to retreive and read the data, the act of parsing must be included in the end.  
+//If the local storage already exists, proceed directly to populating the object array and initializing the index page. If not, irst the data is taken from the JSON file, using AJAX. Then the data is set into local storage for later use. Finally the data is passed into loadAll, populating the Article array, and the page is initialized.
