@@ -52,7 +52,6 @@ Article.fetchAll = () => {
 
     let localStorageData = JSON.parse(localStorage.getItem('rawData'));
     Article.loadAll(localStorageData);
-    localStorage.clear();
 
   } else {
     $.getJSON('../data/hackeripsum.json')
@@ -60,12 +59,9 @@ Article.fetchAll = () => {
         function(data) {
           console.log(data);
           localStorage.setItem('rawData', JSON.stringify(data))},
+          Article.loadAll(data),
         function(err) {
           console.error(err)}
       );
-
-    let localStorageData = JSON.parse(localStorage.getItem('rawData'));
-    Article.loadAll(localStorageData);
-    localStorage.clear();
   }
 }
