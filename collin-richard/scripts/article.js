@@ -36,7 +36,7 @@ Article.prototype.toHtml = function() {
 
 // COMMENT: Where is this function called? What does 'rawData' represent now? How is this different from previous labs?
 
-// This function is called in Article.fetchall, but only if rawData exists in local storage. rawData represents the data set to local storage. In previous labs the data was directly from another Javascript file; it was never set into local storage or retrieved. 
+// This function is called in Article.fetchall, at the end of either branch of the 'if' statement. rawData represents the data set to local storage. In previous labs the data was directly from another Javascript file; it was never set into local storage or retrieved. 
 
 Article.loadAll = articleData => {
   articleData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)))
@@ -58,7 +58,6 @@ Article.fetchAll = () => {
     $.getJSON('../data/hackeripsum.json')
       .then(
         function(data) {
-          console.log(data);
           localStorage.setItem('rawData', JSON.stringify(data))
           Article.loadAll(data);
           articleView.initIndexPage()},
@@ -67,4 +66,4 @@ Article.fetchAll = () => {
       );
   }
 }
-//If the local storage already exists, proceed directly to populating the object array and initializing the index page. If not, irst the data is taken from the JSON file, using AJAX. Then the data is set into local storage for later use. Finally the data is passed into loadAll, populating the Article array, and the page is initialized.
+//If the local storage already exists, proceed directly to populating the object array and initializing the index page. If not, first the data is taken from the JSON file, using AJAX. Then the data is set into local storage for later use. Finally the data is passed into loadAll, populating the Article array, and the page is initialized.
